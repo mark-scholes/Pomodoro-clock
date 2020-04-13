@@ -6,7 +6,7 @@ export default class Session extends Component {
       <div>
         <p id="session-label">Session Length</p>
         <button id="session-decrement">Reduce</button>
-        <div id="session-length">25</div>
+        <div id="session-length">{this.props.length}</div>
         <button id="session-increment">Increase</button>
       </div>
     );

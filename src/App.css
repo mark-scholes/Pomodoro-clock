@@ -1,0 +1,24 @@
+body {
+  height: 100vh;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 100, 54, 1) 48%,
+    rgba(251, 68, 114, 1) 100%
+  );
+}
+
+.App {
+  margin: auto;
+  text-align: center;
+}
+
+#start_stop {
+  border-radius: 50%;
+  padding: 30px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  display: inline-block;
+  font-size: 1vw;
+  margin: auto;
+}

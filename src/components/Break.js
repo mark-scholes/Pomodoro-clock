@@ -6,7 +6,7 @@ class Break extends Component {
       <div>
         <p id="break-label">Break Length</p>
         <button id="break-decrement">Reduce</button>
-        <div id="break-length">5</div>
+        <div id="break-length">{this.props.length}</div>
         <button id="break-increment">Increase</button>
       </div>
     );
