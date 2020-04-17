@@ -8,25 +8,83 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      timer: 0,
-      display: "00:00",
-      breakLength: 15,
-      SessionLength: 30,
+      timerMinutes: 25,
+      time: 0,
+      display: 0,
+      breakLength: 2,
+      SessionLength: 25,
+      isBreak: false,
     };
+    this.handleStartStop = this.handleStartStop.bind(this);
+    this.handleInceaseDecrease = this.handleInceaseDecrease.bind(this);
+  }
+
+  handleStartStop() {
+    const countdown = this.state.SessionLength * 60;
+    console.log(countdown);
+  }
+
+  handleInceaseDecrease(e) {
+    // there needs to be something that prevents length being less than 1
+    // there also needs to be a way to make the session / break more than 60 mins i.e make an hour counter.
+    const { SessionLength, breakLength } = this.state;
+    // break length changes
+    if (e.target.className === "breakButtons") {
+      if (e.target.id === "break-decrement" && breakLength > 1) {
+        this.setState({
+          breakLength: breakLength - 1,
+        });
+      }
+
+      e.target.id === "break-increment" &&
+        this.setState({
+          breakLength: breakLength + 1,
+        });
+    }
+
+    // session length changes
+    else {
+      if (e.target.id === "session-decrement" && SessionLength > 1) {
+        this.setState({
+          SessionLength: SessionLength - 1,
+        });
+      }
+
+      e.target.id === "session-increment" &&
+        this.setState({
+          SessionLength: SessionLength + 1,
+        });
+    }
   }
   render() {
+    const {
+      timerMinutes,
+      display,
+      SessionLength,
+      breakLength,
+      isBreak,
+    } = this.state;
     return (
-      <div className="App">
+      <div className="App" id={isBreak ? "break" : undefined}>
         <header className="title">
           <p>POMODORO CLOCK</p>
         </header>
-        <body>
-          <div className="clock">
-            <Break length={this.state.breakLength} />
-            <Session length={this.state.SessionLength} />
-            <Timer timer={this.state.display} />
-          </div>
-        </body>
+
+        <div className="clock">
+          <Break
+            length={breakLength}
+            handleInceaseDecrease={this.handleInceaseDecrease}
+          />
+          <Session
+            length={SessionLength}
+            handleInceaseDecrease={this.handleInceaseDecrease}
+          />
+          <Timer
+            timer={display}
+            handleStartStop={this.handleStartStop}
+            timerMinutes={timerMinutes}
+          />
+        </div>
       </div>
     );
   }

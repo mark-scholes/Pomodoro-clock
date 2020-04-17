@@ -5,9 +5,21 @@ class Break extends Component {
     return (
       <div>
         <p id="break-label">Break Length</p>
-        <button id="break-decrement">Reduce</button>
+        <button
+          id="break-decrement"
+          onClick={this.props.handleInceaseDecrease}
+          className="breakButtons"
+        >
+          Reduce
+        </button>
         <div id="break-length">{this.props.length}</div>
-        <button id="break-increment">Increase</button>
+        <button
+          id="break-increment"
+          onClick={this.props.handleInceaseDecrease}
+          className="breakButtons"
+        >
+          Increase
+        </button>
       </div>
     );
   }
