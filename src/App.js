@@ -9,25 +9,78 @@ class App extends Component {
     super();
     this.state = {
       timerMinutes: 25,
+      timerSeconds: 0,
       time: 0,
       display: 0,
-      breakLength: 2,
+      breakLength: 5,
       SessionLength: 25,
-      isBreak: false,
+      isBreak: true,
+      isRunning: false,
     };
     this.handleStartStop = this.handleStartStop.bind(this);
     this.handleInceaseDecrease = this.handleInceaseDecrease.bind(this);
+    this.handleReset = this.handleReset.bind(this);
+    this.updateTimer = this.updateTimer.bind(this);
   }
 
   handleStartStop() {
-    const countdown = this.state.SessionLength * 60;
-    console.log(countdown);
+    this.setState((prevState) => {
+      return { isRunning: !prevState.isRunning };
+    });
+    !this.state.isRunning
+      ? (this.myInterval = setInterval(() => {
+          this.updateTimer();
+        }, 1000))
+      : clearInterval(this.myInterval);
+  }
+
+  updateTimer() {
+    const {
+      timerSeconds,
+      timerMinutes,
+      breakLength,
+      SessionLength,
+    } = this.state;
+
+    if (timerSeconds === 0) {
+      this.setState((prevState) => {
+        return {
+          timerMinutes: prevState.timerMinutes - 1,
+          timerSeconds: 59,
+        };
+      });
+    } else {
+      this.setState((prevState) => {
+        return {
+          timerSeconds: prevState.timerSeconds - 1,
+        };
+      });
+    }
+    if (timerSeconds === 0 && timerMinutes === 0) {
+      clearInterval(this.myInterval);
+      this.handleReset();
+      this.setState((prevState) => {
+        return {
+          isBreak: !prevState.isBreak,
+          isRunning: !prevState.isRunning,
+          timerMinutes: this.state.isBreak ? breakLength : SessionLength,
+        };
+      });
+    }
+  }
+
+  handleReset() {
+    this.setState({
+      timerMinutes: 25,
+      timerSeconds: 0,
+      breakLength: 5,
+      SessionLength: 25,
+      isBreak: false,
+    });
   }
 
   handleInceaseDecrease(e) {
-    // there needs to be something that prevents length being less than 1
-    // there also needs to be a way to make the session / break more than 60 mins i.e make an hour counter.
-    const { SessionLength, breakLength } = this.state;
+    const { SessionLength, breakLength, timerMinutes } = this.state;
     // break length changes
     if (e.target.className === "breakButtons") {
       if (e.target.id === "break-decrement" && breakLength > 1) {
@@ -36,10 +89,11 @@ class App extends Component {
         });
       }
 
-      e.target.id === "break-increment" &&
+      if (e.target.id === "break-increment" && breakLength < 60) {
         this.setState({
           breakLength: breakLength + 1,
         });
+      }
     }
 
     // session length changes
@@ -47,22 +101,27 @@ class App extends Component {
       if (e.target.id === "session-decrement" && SessionLength > 1) {
         this.setState({
           SessionLength: SessionLength - 1,
+          timerMinutes: timerMinutes - 1,
         });
       }
 
-      e.target.id === "session-increment" &&
+      if (e.target.id === "session-increment" && SessionLength < 60) {
         this.setState({
           SessionLength: SessionLength + 1,
+          timerMinutes: timerMinutes + 1,
         });
+      }
     }
   }
   render() {
     const {
       timerMinutes,
+      timerSeconds,
       display,
       SessionLength,
       breakLength,
       isBreak,
+      isRunning,
     } = this.state;
     return (
       <div className="App" id={isBreak ? "break" : undefined}>
@@ -71,18 +130,23 @@ class App extends Component {
         </header>
 
         <div className="clock">
-          <Break
-            length={breakLength}
-            handleInceaseDecrease={this.handleInceaseDecrease}
-          />
-          <Session
-            length={SessionLength}
-            handleInceaseDecrease={this.handleInceaseDecrease}
-          />
+          <div className="intervals">
+            <Break
+              length={breakLength}
+              handleInceaseDecrease={this.handleInceaseDecrease}
+            />
+            <Session
+              length={SessionLength}
+              handleInceaseDecrease={this.handleInceaseDecrease}
+            />
+          </div>
           <Timer
             timer={display}
             handleStartStop={this.handleStartStop}
             timerMinutes={timerMinutes}
+            timerSeconds={timerSeconds}
+            reset={this.handleReset}
+            isRunning={isRunning}
           />
         </div>
       </div>
@@ -93,18 +157,6 @@ class App extends Component {
 export default App;
 
 // User Story #11: When I click the element with the id of reset, any running timer should be stopped, the value within id="break-length" should return to 5, the value within id="session-length" should return to 25, and the element with id="time-left" should reset to it's default state.
-
-// User Story #12: When I click the element with the id of break-decrement, the value within id="break-length" decrements by a value of 1, and I can see the updated value.
-
-// User Story #13: When I click the element with the id of break-increment, the value within id="break-length" increments by a value of 1, and I can see the updated value.
-
-// User Story #14: When I click the element with the id of session-decrement, the value within id="session-length" decrements by a value of 1, and I can see the updated value.
-
-// User Story #15: When I click the element with the id of session-increment, the value within id="session-length" increments by a value of 1, and I can see the updated value.
-
-// User Story #16: I should not be able to set a session or break length to <= 0.
-
-// User Story #17: I should not be able to set a session or break length to > 60.
 
 // User Story #18: When I first click the element with id="start_stop", the timer should begin running from the value currently displayed in id="session-length", even if the value has been incremented or decremented from the original value of 25.
 

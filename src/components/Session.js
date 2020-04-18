@@ -6,19 +6,19 @@ export default class Session extends Component {
       <div>
         <p id="session-label">Session Length</p>
         <button
-          id="session-decrement"
-          onClick={this.props.handleInceaseDecrease}
-          className="sessionButtons"
-        >
-          Reduce
-        </button>
-        <div id="session-length">{this.props.length}</div>
-        <button
           id="session-increment"
           onClick={this.props.handleInceaseDecrease}
           className="sessionButtons"
         >
           Increase
+        </button>
+        <div id="session-length">{this.props.length}</div>
+        <button
+          id="session-decrement"
+          onClick={this.props.handleInceaseDecrease}
+          className="sessionButtons"
+        >
+          Reduce
         </button>
       </div>
     );

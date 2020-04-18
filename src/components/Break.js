@@ -6,19 +6,19 @@ class Break extends Component {
       <div>
         <p id="break-label">Break Length</p>
         <button
-          id="break-decrement"
-          onClick={this.props.handleInceaseDecrease}
-          className="breakButtons"
-        >
-          Reduce
-        </button>
-        <div id="break-length">{this.props.length}</div>
-        <button
           id="break-increment"
           onClick={this.props.handleInceaseDecrease}
           className="breakButtons"
         >
           Increase
+        </button>
+        <div id="break-length">{this.props.length}</div>
+        <button
+          id="break-decrement"
+          onClick={this.props.handleInceaseDecrease}
+          className="breakButtons"
+        >
+          Reduce
         </button>
       </div>
     );
