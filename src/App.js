@@ -14,7 +14,7 @@ class App extends Component {
       display: 0,
       breakLength: 5,
       SessionLength: 25,
-      isBreak: true,
+      isBreak: false,
       isRunning: false,
     };
     this.handleStartStop = this.handleStartStop.bind(this);
@@ -63,19 +63,20 @@ class App extends Component {
         return {
           isBreak: !prevState.isBreak,
           isRunning: !prevState.isRunning,
-          timerMinutes: this.state.isBreak ? breakLength : SessionLength,
+          //because this check is happening before the update it still thinks that we are on a break so the check is required to be the wrong way around. This is not ideal. Find another way to do this.
+          timerMinutes: !this.state.isBreak ? breakLength : SessionLength,
         };
       });
     }
   }
 
   handleReset() {
+    clearInterval(this.myInterval);
     this.setState({
       timerMinutes: 25,
       timerSeconds: 0,
       breakLength: 5,
       SessionLength: 25,
-      isBreak: false,
     });
   }
 
