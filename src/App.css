@@ -32,10 +32,11 @@ body {
   );
 }
 
-#start_stop {
+#start_stop,
+#reset {
   border-radius: 50%;
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   text-align: center;
   display: inline-block;
   font-size: 1vw;
@@ -73,8 +74,18 @@ body {
   align-items: center;
 }
 
-#reset {
-  /* visibility: hidden; */
-  margin-top: 4%;
-  width: 30%;
+.sessionButtons {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2.5rem;
+  padding: 10px;
+}
+
+.breakButtons {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2.5rem;
+  padding: 10px;
 }
