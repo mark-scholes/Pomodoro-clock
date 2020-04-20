@@ -10,8 +10,6 @@ class App extends Component {
     this.state = {
       timerMinutes: 25,
       timerSeconds: 0,
-      time: 0,
-      display: 0,
       breakLength: 5,
       SessionLength: 25,
       isBreak: false,
@@ -61,22 +59,24 @@ class App extends Component {
       this.handleReset();
       this.setState((prevState) => {
         return {
-          isBreak: !prevState.isBreak,
           isRunning: !prevState.isRunning,
-          //because this check is happening before the update it still thinks that we are on a break so the check is required to be the wrong way around. This is not ideal. Find another way to do this.
-          timerMinutes: !this.state.isBreak ? breakLength : SessionLength,
+          timerMinutes: this.state.isBreak ? breakLength : SessionLength,
         };
       });
     }
   }
 
-  handleReset() {
+  handleReset(Boolean = false) {
     clearInterval(this.myInterval);
-    this.setState({
-      timerMinutes: 25,
-      timerSeconds: 0,
-      breakLength: 5,
-      SessionLength: 25,
+    this.setState((prevState) => {
+      return {
+        timerMinutes: 25,
+        timerSeconds: 0,
+        breakLength: 5,
+        SessionLength: 25,
+        // as we need this function to behave differently if it was run due to a button click or due to the updateTimer function a Boolean is passed as a parameter when clicked but not when run from UpdateTimer function
+        isBreak: Boolean === true ? false : !prevState.isBreak,
+      };
     });
   }
 
@@ -118,7 +118,6 @@ class App extends Component {
     const {
       timerMinutes,
       timerSeconds,
-      display,
       SessionLength,
       breakLength,
       isBreak,
@@ -142,7 +141,6 @@ class App extends Component {
             />
           </div>
           <Timer
-            timer={display}
             handleStartStop={this.handleStartStop}
             timerMinutes={timerMinutes}
             timerSeconds={timerSeconds}
