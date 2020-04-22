@@ -7,24 +7,17 @@ export default class Timer extends Component {
       : document.body.classList.remove("break-background");
   }
   render() {
+    const { timerMinutes, timerSeconds } = this.props;
+    let output = "";
+    let minutes = timerMinutes < 10 ? "0" + timerMinutes : timerMinutes;
+    let seconds = timerSeconds < 10 ? "0" + timerSeconds : timerSeconds;
+    output = minutes + ":" + seconds;
+
     return (
       <div>
         <section>
-          <p id="timer-label"></p>
-          <div id="time-left">
-            <p id="timer-clock">
-              <span>
-                {this.props.timerMinutes <= 9
-                  ? "0" + this.props.timerMinutes
-                  : this.props.timerMinutes}
-              </span>
-              <span>:</span>
-              <span>
-                {this.props.timerSeconds <= 9
-                  ? "0" + this.props.timerSeconds
-                  : this.props.timerSeconds}
-              </span>
-            </p>
+          <div id="clock">
+            <p id="time-left">{output}</p>
           </div>
         </section>
         <div id="startPause-ResetButtons">

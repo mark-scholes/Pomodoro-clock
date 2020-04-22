@@ -57,7 +57,7 @@ body {
   transform: translateY(4px);
 }
 
-#time-left {
+#clock {
   border: 3px dotted white;
   border-radius: 50%;
   width: 300px;
