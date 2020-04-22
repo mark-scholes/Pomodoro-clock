@@ -10,7 +10,7 @@ export default class Session extends Component {
           onClick={this.props.handleInceaseDecrease}
           className="sessionButtons"
         >
-          Increase
+          +
         </button>
         <div id="session-length">{this.props.length}</div>
         <button
@@ -18,7 +18,7 @@ export default class Session extends Component {
           onClick={this.props.handleInceaseDecrease}
           className="sessionButtons"
         >
-          Reduce
+          -
         </button>
       </div>
     );

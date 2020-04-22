@@ -38,7 +38,6 @@ body {
   width: 90px;
   height: 90px;
   text-align: center;
-  display: inline-block;
   font-size: 1vw;
   margin: 0 auto;
   position: relative;
@@ -46,6 +45,16 @@ body {
   color: white;
   border: 1.5px solid white;
   font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 5px #999;
+}
+#start_stop:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.button:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
 
 #time-left {
@@ -67,11 +76,11 @@ body {
 }
 
 #startPause-ResetButtons {
+  bottom: 10px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding-top: 8%;
   padding-bottom: 3%;
-  align-items: center;
 }
 
 .sessionButtons {
@@ -88,4 +97,19 @@ body {
   color: white;
   font-size: 2.5rem;
   padding: 10px;
+}
+
+#reset {
+  text-align: end;
+  padding-left: 22px;
+}
+button:focus {
+  outline: 0;
+}
+button:hover {
+  background-color: white;
+}
+
+#hide {
+  display: none;
 }

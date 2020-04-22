@@ -10,7 +10,7 @@ class Break extends Component {
           onClick={this.props.handleInceaseDecrease}
           className="breakButtons"
         >
-          Increase
+          +
         </button>
         <div id="break-length">{this.props.length}</div>
         <button
@@ -18,7 +18,7 @@ class Break extends Component {
           onClick={this.props.handleInceaseDecrease}
           className="breakButtons"
         >
-          Reduce
+          -
         </button>
       </div>
     );

@@ -28,13 +28,24 @@ export default class Timer extends Component {
           </div>
         </section>
         <div id="startPause-ResetButtons">
-          <button id="start_stop" onClick={this.props.handleStartStop}>
+          <button
+            id="start_stop"
+            onClick={() => this.props.handleStartStop(true)}
+          >
             {this.props.isRunning ? "Pause" : "Start"}
           </button>
-          <button id="reset" onClick={() => this.props.reset(true)}>
+          <button
+            id="reset"
+            onClick={() => this.props.reset(true)}
+            style={{ display: this.props.isPaused ? "inherit" : "none" }}
+          >
             Reset
           </button>
         </div>
+        <audio
+          id="beep"
+          src="https://sampleswap.org/samples-ghost/SOUND%20EFFECTS%20and%20NOISES/Bleeps%20Blips%20Blonks%20Blarts%20and%20Zaps/92[kb]checkpoint-hit.aif.mp3"
+        ></audio>
       </div>
     );
   }
