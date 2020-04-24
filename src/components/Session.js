@@ -3,7 +3,7 @@ import React, { Component } from "react";
 export default class Session extends Component {
   render() {
     return (
-      <div>
+      <div className="length-div">
         <p id="session-label">Session Length</p>
         <button
           id="session-increment"

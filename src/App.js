@@ -71,6 +71,7 @@ class App extends Component {
           timerMinutes: this.state.isBreak ? breakLength : SessionLength,
         };
       });
+      this.handleStartStop();
     }
   }
 
@@ -85,8 +86,13 @@ class App extends Component {
         // as we need this function to behave differently if it was run due to a button click or due to the updateTimer function a Boolean is passed as a parameter when clicked but not when run from UpdateTimer function
         isBreak: Boolean === true ? false : !prevState.isBreak,
         isPaused: false,
+        isRunning: Boolean === true ? false : true,
       };
     });
+    if (document.getElementById("beep")) {
+      document.getElementById("beep").pause();
+      document.getElementById("beep").currentTime = 0;
+    }
   }
 
   handleInceaseDecrease(e) {
@@ -141,7 +147,7 @@ class App extends Component {
               ? "Session"
               : isBreak
               ? "Break has Begun"
-              : "Pomodoro Clock"}
+              : "Session"}
           </p>
         </header>
 

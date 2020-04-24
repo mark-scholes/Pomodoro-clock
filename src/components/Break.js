@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class Break extends Component {
   render() {
     return (
-      <div>
+      <div className="length-div">
         <p id="break-label">Break Length</p>
         <button
           id="break-increment"
